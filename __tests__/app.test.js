@@ -28,31 +28,33 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('post to wishlist', async() => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'cool_factor': 3,
-          'owner_id': 1
-        },
-        {
-          'id': 2,
-          'name': 'jumpy',
-          'cool_factor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'cool_factor': 10,
-          'owner_id': 1
+          id: 2,
+          englishname: 'Sun',
+          isplanet: false,
+          gravity: '3000',
+          owner_id: 2
         }
       ];
-
+      
+      const output =
+        {
+          englishname: 'Sun',
+          isplanet: false,
+          gravity: 3000
+        };
+      await fakeRequest(app)
+        .post('/api/wishlist')
+        .send(output)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/api/wishlist')
+        .set('Authorization', token)
         .expect('Content-Type', /json/)
         .expect(200);
 

@@ -15,11 +15,11 @@ async function run() {
     const users = await Promise.all(
       usersData.map(user => {
         return client.query(`
-                      INSERT INTO users (email, hash, location)
-                      VALUES ($1, $2, $3)
+                      INSERT INTO users (email, hash)
+                      VALUES ($1, $2)
                       RETURNING *;
                   `,
-        [user.email, user.hash, user.location]);
+        [user.email, user.hash]);
       })
     );
       
@@ -28,20 +28,20 @@ async function run() {
     await Promise.all(
       wishlist.map(wishItem => {
         return client.query(`
-                    INSERT INTO wishlist (englishName, isPlanet, gravity, owner_id)
+                    INSERT INTO wishlist (englishname, isplanet, gravity, owner_id)
                     VALUES ($1, $2, $3, $4);
                 `,
-        [wishItem.englishName, wishItem.isPlanet, wishItem.gravity, user.id]);
+        [wishItem.englishname, wishItem.isplanet, wishItem.gravity, user.id]);
       })
     );
 
     await Promise.all(
       journals.map(journal => {
         return client.query(`
-                    INSERT INTO journals (date, journal_entry, image_url, owner_id)
-                    VALUES ($1, $2, $3, $4);
+                    INSERT INTO journals (date, englishname, journal_entry, image_url, owner_id)
+                    VALUES ($1, $2, $3, $4, $5);
                 `,
-        [journal.date, journal.journal_entry, journal.image_url, user.id]);
+        [journal.date, journal.englishname, journal.journal_entry, journal.image_url, user.id]);
       })
     );
     

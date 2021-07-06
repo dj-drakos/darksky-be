@@ -10,23 +10,22 @@ async function run() {
     // initiate connecting to db
     await client.connect();
 
-    // run a query to create tables
     await client.query(`
                 CREATE TABLE users (
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
-                    hash VARCHAR(512) NOT NULL,
-                    location VARCHAR(256) NOT NULL
+                    hash VARCHAR(512) NOT NULL
                 );           
                 CREATE TABLE wishlist (
-                    id SERIAL PRIMARY KEY,
-                    englishName VARCHAR(256) NOT NULL,
-                    isPlanet BOOLEAN NOT NULL,
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    englishname VARCHAR(256) NOT NULL,
+                    isplanet BOOLEAN NOT NULL,
                     gravity DECIMAL NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
                 CREATE TABLE journals (
-                    id SERIAL PRIMARY KEY,
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    englishname VARCHAR(256) NOT NULL,
                     journal_entry VARCHAR(512) NOT NULL,
                     date VARCHAR(256) NOT NULL,
                     image_url VARCHAR(512) NOT NULL,
