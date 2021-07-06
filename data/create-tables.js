@@ -20,17 +20,17 @@ async function run() {
                 );           
                 CREATE TABLE wishlist (
                     id SERIAL PRIMARY KEY NOT NULL,
-                    englishName: VARCHAR(256) NOT NULL,
-                    isPlanet: BOOLEAN NOT NULL,
-                    gravity: DECIMAL NOT NULL,
+                    englishName VARCHAR(256) NOT NULL,
+                    isPlanet BOOLEAN NOT NULL,
+                    gravity DECIMAL NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
                 CREATE TABLE logs (
                     id SERIAL PRIMARY KET NOT NULL,
-                    log_entry: VARCHAR(512) NOT NULL,
-                    date: VARCHAR(256) NOT NULL,
-                    image_url: VARCHAR(512) NOT NULL,
-                    englishName: VARCHAR(256) NOT NULL REFERENCES wishlist(englishName),
+                    log_entry VARCHAR(512) NOT NULL,
+                    date VARCHAR(256) NOT NULL,
+                    image_url VARCHAR(512) NOT NULL,
+                    englishName VARCHAR(256) NOT NULL REFERENCES wishlist(id),
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
         `);
