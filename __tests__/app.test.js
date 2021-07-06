@@ -60,5 +60,56 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('get  wishlist', async() => {
+
+      const expectation = [
+        {
+          id: 2,
+          englishname: 'Sun',
+          isplanet: false,
+          gravity: '3000',
+          owner_id: 2
+        }
+      ];
+      
+
+      const data = await fakeRequest(app)
+        .get('/api/wishlist')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('delete from wishlist', async() => {
+
+      await fakeRequest(app) 
+        .delete('/api/wishlist/2')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+
+
+
+      const data = await fakeRequest(app)
+        .get('/api/wishlist')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const deletedWishItem =
+        {
+          id: 2,
+          englishname: 'Sun',
+          isplanet: false,
+          gravity: '3000',
+          owner_id: 2
+        };
+
+      expect(data.body).not.toContainEqual(deletedWishItem);
+    });
   });
 });
