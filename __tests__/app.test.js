@@ -34,8 +34,6 @@ describe('app routes', () => {
         {
           id: 2,
           englishname: 'Sun',
-          isplanet: false,
-          gravity: '3000',
           owner_id: 2
         }
       ];
@@ -67,8 +65,6 @@ describe('app routes', () => {
         {
           id: 2,
           englishname: 'Sun',
-          isplanet: false,
-          gravity: '3000',
           owner_id: 2
         }
       ];
@@ -104,8 +100,6 @@ describe('app routes', () => {
         {
           id: 2,
           englishname: 'Sun',
-          isplanet: false,
-          gravity: '3000',
           owner_id: 2
         };
 

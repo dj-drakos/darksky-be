@@ -28,10 +28,10 @@ async function run() {
     await Promise.all(
       wishlist.map(wishItem => {
         return client.query(`
-                    INSERT INTO wishlist (englishname, isplanet, gravity, owner_id)
-                    VALUES ($1, $2, $3, $4);
+                    INSERT INTO wishlist (englishname, owner_id)
+                    VALUES ($1, $2);
                 `,
-        [wishItem.englishname, wishItem.isplanet, wishItem.gravity, user.id]);
+        [wishItem.englishname, user.id]);
       })
     );
 
