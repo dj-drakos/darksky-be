@@ -19,8 +19,6 @@ async function run() {
                 CREATE TABLE wishlist (
                     id SERIAL PRIMARY KEY NOT NULL,
                     englishname VARCHAR(256) NOT NULL,
-                    isplanet BOOLEAN NOT NULL,
-                    gravity DECIMAL NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
                 CREATE TABLE journals (
