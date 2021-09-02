@@ -3,7 +3,7 @@
 ## Developers
 - DJ Drakos
 - Sofia Tejada
-- Kubisiak
+- . Kubisiak
 - Isaac Ewing
 - Ben Francka
 
