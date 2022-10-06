@@ -9,17 +9,6 @@ const mockUser = {
   password: 'cool'
 }
 
-// const registerAndSignIn = async (userProps) => {
-//   const password = userProps.password ?? mockUser.password
-
-//   const agent = request.agent(app)
-//   const user = await UserService.create(userProps)
-
-//   const { email } = user
-//   //send user info ro sign in route
-//   //return cookie and user data
-// }
-
 describe('api routes', () => {
   beforeEach(() => {
     return setup(pool)
@@ -30,6 +19,18 @@ describe('api routes', () => {
   it('creates a new user', async () => {
     const { body } = await request(app)
       .post('/api/v1/users')
+      .send(mockUser)
+
+      expect(body).toEqual({
+        message: 'Sign up successful!'
+      })
+  })
+
+  it('signs in an existing user', async () => {
+    await UserService.create(mockUser)
+
+    const { body } = await request(app)
+      .post('/api/v1/users/sessions')
       .send(mockUser)
 
       expect(body).toEqual({
