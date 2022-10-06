@@ -32,12 +32,8 @@ describe('api routes', () => {
       .post('/api/v1/users')
       .send(mockUser)
 
-      // const agent = request.agent(app)
-      // const user = await UserService.create(mockUser)
-
       expect(body).toEqual({
-        id: expect.any(Number),
-        email: mockUser.email
+        message: 'Sign in successful!'
       })
   })
 })
@@ -46,25 +42,6 @@ describe('api routes', () => {
 
 // describe('app routes', () => {
 //   describe('routes', () => {
-//     let token;
-  
-//     beforeAll(async () => {
-//       execSync('npm run setup-db');
-  
-//       await client.connect();
-//       const signInData = await fakeRequest(app)
-//         .post('/auth/signup')
-//         .send({
-//           email: 'jon@user.com',
-//           password: '1234'
-//         });
-      
-//       token = signInData.body.token; // eslint-disable-line
-//     }, 10000);
-  
-//     afterAll(done => {
-//       return client.end(done);
-//     });
 
 //     test('post to wishlist', async() => {
 
