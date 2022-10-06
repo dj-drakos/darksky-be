@@ -28,14 +28,14 @@ describe('api routes', () => {
   afterAll(() => pool.end())
 
   it('creates a new user', async () => {
-    // const { body } = await request(app)
-    //   .post('/api/v1/users')
-    //   .send(mockUser)
+    const { body } = await request(app)
+      .post('/api/v1/users')
+      .send(mockUser)
 
-      const agent = request.agent(app)
-      const user = await UserService.create(mockUser)
+      // const agent = request.agent(app)
+      // const user = await UserService.create(mockUser)
 
-      expect(user).toEqual({
+      expect(body).toEqual({
         id: expect.any(Number),
         email: mockUser.email
       })
