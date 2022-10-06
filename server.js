@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 7890;
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`🛰️ Server Started on ${API_URL}: ${PORT}`);
+  console.log(`🛰️  Server Started on ${API_URL}: ${PORT}`);
 });
 
 process.on('exit', () => {
