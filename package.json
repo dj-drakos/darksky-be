@@ -9,8 +9,7 @@
     "start": "node -r dotenv/config server.js",
     "start:watch": "nodemon server.js",
     "lint": "eslint .",
-    "setup-db": "node -r dotenv/config setup-db.js",
-    "setup-db:prod": "heroku run npm run setup-db"
+    "setup-db": "node -r dotenv/config setup-db.js"
   },
   "jest": {
     "testEnvironment": "node"
