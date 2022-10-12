@@ -42,17 +42,17 @@ describe('app routes', () => {
       .set('Authorization', sessionToken)
       .send({
         name: 'Moon',
-        journal_entry: 'Magnificent desolation.',
+        journalEntry: 'Magnificent desolation.',
         date: 'July 20, 1969',
-        image_url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
+        imageUrl: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
       })
 
       expect(body).toEqual({
         id: expect.any(String),
         name: 'Moon',
-        journal_entry: 'Magnificent desolation.',
+        journalEntry: 'Magnificent desolation.',
         date: 'July 20, 1969',
-        image_url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
+        imageUrl: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
       })
   })
 })
