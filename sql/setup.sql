@@ -14,7 +14,7 @@ CREATE TABLE wishlists (
 CREATE TABLE journals (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   object_name TEXT NOT NULL,
-  journal_entry TEXT NOT NULL,
+  entry TEXT NOT NULL,
   date TEXT NOT NULL,
   image_url TEXT NOT NULL,
   owner_id INTEGER NOT NULL REFERENCES users(id)

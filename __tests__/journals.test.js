@@ -41,16 +41,16 @@ describe('app routes', () => {
       .post('/api/v1/journals')
       .set('Authorization', sessionToken)
       .send({
-        name: 'Moon',
-        journalEntry: 'Magnificent desolation.',
+        objectName: 'Moon',
+        entry: 'Magnificent desolation.',
         date: 'July 20, 1969',
         imageUrl: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
       })
 
       expect(body).toEqual({
         id: expect.any(String),
-        name: 'Moon',
-        journalEntry: 'Magnificent desolation.',
+        objectName: 'Moon',
+        entry: 'Magnificent desolation.',
         date: 'July 20, 1969',
         imageUrl: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/as11-40-5944.jpg',
       })

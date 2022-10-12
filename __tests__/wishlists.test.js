@@ -17,11 +17,11 @@ const signUpAndReturnToken = async (userData = mockUser) => {
   return [req, body.sessionToken]
 }
 
-const createNewWishlistItem = async (req, sessionToken, data) => {
+const createNewWishlistItem = async (req, sessionToken, objectName) => {
   const { body } = await req
     .post('/api/v1/wishlists')
     .set('Authorization', sessionToken)
-    .send({ name: data })
+    .send({ objectName })
   return body
 }
 
@@ -48,9 +48,9 @@ describe('app routes', () => {
     const { body } = await req
       .post('/api/v1/wishlists')
       .set('Authorization', sessionToken)
-      .send({ name: 'Pluto' })
+      .send({ objectName: 'Pluto' })
     
-    expect(body).toEqual({"id": "1", "name": "Pluto"})
+    expect(body).toEqual({"id": "1", "objectName": "Pluto"})
   }) 
 
 
@@ -65,10 +65,10 @@ describe('app routes', () => {
 
     expect(body).toEqual([{
       id: expect.any(String),
-      name: 'Pluto'
+      objectName: 'Pluto'
     }, {
       id: expect.any(String),
-      name: 'Arcturus'
+      objectName: 'Arcturus'
     }])
   })
 
