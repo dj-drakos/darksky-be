@@ -88,7 +88,6 @@ describe('app routes', () => {
       ...modifiedMoonEntry
     })})
 
-
   it('returns an authenticated user\'s journals as an aray of JSON objects', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     const moonEntry = await createNewJournalEntry(req, sessionToken, mockMoonEntry)
@@ -110,6 +109,17 @@ describe('app routes', () => {
       .set('Authorization', sessionToken)
 
     expect(body).toEqual(halleyEntry)
+  })
+
+  it('deletes an authenticated user\'s journal entry and returns a confirmation message', async () => {
+    const [req, sessionToken] = await signUpAndReturnToken()
+    const halleyEntry = await createNewJournalEntry(req, sessionToken, mockHalleyEntry)
+
+    const { body } = await req
+      .delete(`/api/v1/journals/${halleyEntry.id}`)
+      .set('Authorization', sessionToken)
+
+    expect(body).toEqual({ message: 'Journal successfully deleted.' })
   })
 })
 
