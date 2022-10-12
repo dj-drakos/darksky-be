@@ -10,10 +10,18 @@ const mockUser = {
 }
 
 const signUpAndReturnToken = async (userData = mockUser) => {
-  const { body } = await request(app)
+  const req = request(app)
+  const { body } = await req
     .post('/api/v1/users/signup')
     .send(userData) 
-  return body.sessionToken
+  return [req, body.sessionToken]
+}
+
+const createNewWishlistItem = async (req, sessionToken, data) => {
+  await req
+  .post('/api/v1/wishlists')
+  .set('Authorization', sessionToken)
+  .send({ name: data })
 }
 
 describe('app routes', () => {
@@ -24,9 +32,9 @@ describe('app routes', () => {
   afterAll(() => pool.end())
 
   it('creates a new wishlist item', async () => {
-    const sessionToken = await signUpAndReturnToken()
+    const [req, sessionToken] = await signUpAndReturnToken()
 
-    const { body } = await request(app)
+    const { body } = await req
       .post('/api/v1/wishlists')
       .set('Authorization', sessionToken)
       .send({ name: 'Pluto' })
@@ -35,25 +43,24 @@ describe('app routes', () => {
   }) 
 
   it('returns a list of a user\'s wishlist items', async () => {
-    const sessionToken = await signUpAndReturnToken()
-    await request(app)
-      .post('/api/v1/wishlists')
-      .set('Authorization', sessionToken)
-      .send({ name: 'Pluto' })
-    await request(app)
-      .post('/api/v1/wishlists')
-      .set('Authorization', sessionToken)
-      .send({ name: 'Arcturus' })
+    const [req, sessionToken] = await signUpAndReturnToken()
+    await createNewWishlistItem(req, sessionToken, 'Pluto')
+    await createNewWishlistItem(req, sessionToken, 'Arcturus')
 
-    const { body } = await request(app)
+    const { body } = await req
       .get('/api/v1/wishlists')
+      .set('Authorization', sessionToken)
 
     expect(body).toEqual([{
+      id: expect.any(String),
       name: 'Pluto'
     }, {
+      id: expect.any(String),
       name: 'Arcturus'
     }])
   })
+
+  
 })
 
 
