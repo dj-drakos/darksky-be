@@ -54,7 +54,7 @@ describe('app routes', () => {
   }) 
 
 
-  it('returns a JSON object of an authenticated user\'s wishlist', async () => {
+  it('returns an authenticated user\'s wishlist as an array of JSON objects', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     await createNewWishlistItem(req, sessionToken, 'Pluto')
     await createNewWishlistItem(req, sessionToken, 'Arcturus')
