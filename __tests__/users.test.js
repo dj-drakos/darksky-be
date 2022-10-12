@@ -9,7 +9,7 @@ const mockUser = {
   password: 'cool'
 }
 
-describe('api routes', () => {
+describe('app routes', () => {
   beforeEach(() => {
     return setup(pool)
   })
@@ -41,88 +41,6 @@ describe('api routes', () => {
   })
 })
 
-
-
-// describe('app routes', () => {
-//   describe('routes', () => {
-
-//     test('post to wishlist', async() => {
-
-//       const expectation = [
-//         {
-//           id: 2,
-//           englishname: 'Sun',
-//           owner_id: 2
-//         }
-//       ];
-      
-//       const output =
-//         {
-//           englishname: 'Sun',
-//           isplanet: false,
-//           gravity: 3000
-//         };
-//       await fakeRequest(app)
-//         .post('/api/wishlist')
-//         .send(output)
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-//       const data = await fakeRequest(app)
-//         .get('/api/wishlist')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-//       expect(data.body).toEqual(expectation);
-//     });
-
-//     test('get  wishlist', async() => {
-
-//       const expectation = [
-//         {
-//           id: 2,
-//           englishname: 'Sun',
-//           owner_id: 2
-//         }
-//       ];
-      
-
-//       const data = await fakeRequest(app)
-//         .get('/api/wishlist')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-//       expect(data.body).toEqual(expectation);
-//     });
-
-//     test('delete from wishlist', async() => {
-
-//       await fakeRequest(app) 
-//         .delete('/api/wishlist/2')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-
-
-
-//       const data = await fakeRequest(app)
-//         .get('/api/wishlist')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-//       const deletedWishItem =
-//         {
-//           id: 2,
-//           englishname: 'Sun',
-//           owner_id: 2
-//         };
-
-//       expect(data.body).not.toContainEqual(deletedWishItem);
-//     });
 
 //     test('post to journals', async() => {
 
