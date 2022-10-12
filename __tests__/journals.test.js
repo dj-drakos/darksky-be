@@ -106,7 +106,7 @@ describe('app routes', () => {
     const halleyEntry = await createNewJournalEntry(req, sessionToken, mockHalleyEntry)
 
     const { body } = await req
-      .get(`api/v1/journals/${halleyEntry.id}`)
+      .get(`/api/v1/journals/${halleyEntry.id}`)
       .set('Authorization', sessionToken)
 
     expect(body).toEqual(halleyEntry)
