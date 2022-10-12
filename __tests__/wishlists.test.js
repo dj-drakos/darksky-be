@@ -53,7 +53,6 @@ describe('app routes', () => {
     expect(body).toEqual({"id": "1", "objectName": "Pluto"})
   }) 
 
-
   it('returns an authenticated user\'s wishlist as an array of JSON objects', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     await createNewWishlistItem(req, sessionToken, 'Pluto')
