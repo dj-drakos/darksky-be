@@ -76,11 +76,10 @@ describe('app routes', () => {
     const pluto = await createNewWishlistItem(req, sessionToken, 'Pluto')
 
     const { body } = await req
-      .delete('/api/v1/wishlists')
+      .delete(`/api/v1/wishlists/${pluto.id}`)
       .set('Authorization', sessionToken)
-      .send({ id: pluto.id })
       
-    expect(body).toEqual({ message: 'Item deleted successfully.'})
+    expect(body).toEqual({ message: 'Item successfully deleted.'})
   })
 })
 
