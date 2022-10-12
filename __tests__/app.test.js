@@ -18,11 +18,12 @@ describe('api routes', () => {
 
   it('creates a new user', async () => {
     const { body } = await request(app)
-      .post('/api/v1/users')
+      .post('/api/v1/users/signup')
       .send(mockUser)
 
       expect(body).toEqual({
-        message: 'Sign up successful!'
+        message: 'Sign up successful!',
+        sessionToken: expect.any(String)
       })
   })
 
@@ -30,11 +31,12 @@ describe('api routes', () => {
     await UserService.create(mockUser)
 
     const { body } = await request(app)
-      .post('/api/v1/users/sessions')
+      .post('/api/v1/users/signin')
       .send(mockUser)
 
       expect(body).toEqual({
-        message: 'Sign in successful!'
+        message: 'Sign in successful!',
+        sessionToken: expect.any(String)
       })
   })
 })
