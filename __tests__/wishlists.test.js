@@ -9,6 +9,13 @@ const mockUser = {
   password: 'coolcool'
 }
 
+const signUpAndReturnToken = async (userData = mockUser) => {
+  const { body } = await request(app)
+    .post('/api/v1/users/signup')
+    .send(userData) 
+  return body.sessionToken
+}
+
 describe('app routes', () => {
   beforeEach(() => {
     return setup(pool)
@@ -17,11 +24,12 @@ describe('app routes', () => {
   afterAll(() => pool.end())
 
   it('creates a new wishlist item', async () => {
-    const { sessionToken } = UserService.create(mockUser)
+    const sessionToken = await signUpAndReturnToken()
 
     const { body } = await request(app)
-      .post('api/v1/wishlists/')
+      .post('/api/v1/wishlists')
       .set('Authorization', sessionToken)
+      .send({ name: 'Pluto' })
     
     expect(body).toEqual(Object)
     
