@@ -18,10 +18,11 @@ const signUpAndReturnToken = async (userData = mockUser) => {
 }
 
 const createNewWishlistItem = async (req, sessionToken, data) => {
-  await req
-  .post('/api/v1/wishlists')
-  .set('Authorization', sessionToken)
-  .send({ name: data })
+  const { body } = await req
+    .post('/api/v1/wishlists')
+    .set('Authorization', sessionToken)
+    .send({ name: data })
+  return body
 }
 
 describe('app routes', () => {
@@ -42,7 +43,17 @@ describe('app routes', () => {
     expect(body).toEqual({"id": "1", "name": "Pluto"})
   }) 
 
-  it('returns a list of a user\'s wishlist items', async () => {
+  it('returns a \"401: Unauthorized\" error if auth credentials aren\'t provided', async () => {
+    const { body } = await request(app)
+    .get('/api/v1/wishlists')
+
+    expect(body).toEqual({ 
+      status: 401,
+      message: 'Unauthorized request. Please sign in to continue.'
+    })
+  })
+
+  it('returns a list of a signed in user\'s wishlist items', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     await createNewWishlistItem(req, sessionToken, 'Pluto')
     await createNewWishlistItem(req, sessionToken, 'Arcturus')
@@ -60,7 +71,17 @@ describe('app routes', () => {
     }])
   })
 
-  
+  it('deletes a signed in user\'s wishlist item', async () => {
+    const [req, sessionToken] = await signUpAndReturnToken()
+    const pluto = await createNewWishlistItem(req, sessionToken, 'Pluto')
+
+    const { body } = await req
+      .delete('/api/v1/wishlists')
+      .set('Authorization', sessionToken)
+      .send({ id: pluto.id })
+      
+    expect(body).toEqual({ message: 'Item deleted successfully.'})
+  })
 })
 
 
