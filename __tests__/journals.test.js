@@ -94,7 +94,7 @@ describe('app routes', () => {
     const moonEntry = await createNewJournalEntry(req, sessionToken, mockMoonEntry)
     const halleyEntry = await createNewJournalEntry(req, sessionToken, mockHalleyEntry)
 
-    const { body } = req 
+    const { body } = await req 
       .get('/api/v1/journals')
       .set('Authorization', sessionToken)
 
