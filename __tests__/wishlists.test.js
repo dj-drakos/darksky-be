@@ -31,7 +31,7 @@ describe('app routes', () => {
       .set('Authorization', sessionToken)
       .send({ name: 'Pluto' })
     
-    expect(body).toEqual(Object)
+    expect(body).toEqual({"id": "1", "name": "Pluto"})
     
 
   }) 
