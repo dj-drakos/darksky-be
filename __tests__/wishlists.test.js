@@ -6,7 +6,7 @@ const UserService = require('../lib/services/UserService')
 
 const mockUser = {
   email: 'test@testing.com',
-  password: 'coolcool'
+  password: '1234'
 }
 
 const signUpAndReturnToken = async (userData = mockUser) => {
@@ -32,7 +32,17 @@ describe('app routes', () => {
 
   afterAll(() => pool.end())
 
-  it('creates a new wishlist item', async () => {
+  it('returns a \"401: Unauthorized\" error if a session token is not provided in the request header', async () => {
+    const { body } = await request(app)
+    .get('/api/v1/wishlists')
+
+    expect(body).toEqual({ 
+      status: 401,
+      message: 'Unauthorized request. Please sign in to continue.'
+    })
+  })
+
+  it('posts a new wishlist item to the db then returns a JSON object of the new db item', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
 
     const { body } = await req
@@ -43,17 +53,8 @@ describe('app routes', () => {
     expect(body).toEqual({"id": "1", "name": "Pluto"})
   }) 
 
-  it('returns a \"401: Unauthorized\" error if auth credentials aren\'t provided', async () => {
-    const { body } = await request(app)
-    .get('/api/v1/wishlists')
 
-    expect(body).toEqual({ 
-      status: 401,
-      message: 'Unauthorized request. Please sign in to continue.'
-    })
-  })
-
-  it('returns a list of a signed in user\'s wishlist items', async () => {
+  it('returns a JSON object of an authenticated user\'s wishlist', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     await createNewWishlistItem(req, sessionToken, 'Pluto')
     await createNewWishlistItem(req, sessionToken, 'Arcturus')
@@ -71,7 +72,7 @@ describe('app routes', () => {
     }])
   })
 
-  it('deletes a signed in user\'s wishlist item', async () => {
+  it('deletes an authenticated user\'s wishlist item and returns a confirmation message', async () => {
     const [req, sessionToken] = await signUpAndReturnToken()
     const pluto = await createNewWishlistItem(req, sessionToken, 'Pluto')
 
@@ -82,54 +83,4 @@ describe('app routes', () => {
     expect(body).toEqual({ message: 'Item successfully deleted.'})
   })
 })
-
-
-//     test('get  wishlist', async() => {
-
-//       const expectation = [
-//         {
-//           id: 2,
-//           englishname: 'Sun',
-//           owner_id: 2
-//         }
-//       ];
-      
-
-//       const data = await fakeRequest(app)
-//         .get('/api/wishlist')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-//       expect(data.body).toEqual(expectation);
-//     });
-
-//     test('delete from wishlist', async() => {
-
-//       await fakeRequest(app) 
-//         .delete('/api/wishlist/2')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-
-
-
-//       const data = await fakeRequest(app)
-//         .get('/api/wishlist')
-//         .set('Authorization', token)
-//         .expect('Content-Type', /json/)
-//         .expect(200);
-
-//       const deletedWishItem =
-//         {
-//           id: 2,
-//           englishname: 'Sun',
-//           owner_id: 2
-//         };
-
-//       expect(data.body).not.toContainEqual(deletedWishItem);
-//     });
-
-
 
