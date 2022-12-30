@@ -34,5 +34,5 @@ jobs:
       env:
         CI: true
         DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-        JWT_SECRET: ${{ env.JWT_SECRET }}
-        SALT_ROUNDS: ${{ env.SALT_ROUNDS }}
+        JWT_SECRET: ${{ process.env.JWT_SECRET }}
+        SALT_ROUNDS: ${{ process.env.SALT_ROUNDS }}
