@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
     container: node:latest
     services:
@@ -17,8 +18,9 @@ jobs:
           POSTGRES_PASSWORD: postgres
 
     strategy:
-        matrix:
-        node-version: [14.x, 16.x, 18.x]
+      matrix:
+      node-version: [14.x, 16.x, 18.x]
+
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
